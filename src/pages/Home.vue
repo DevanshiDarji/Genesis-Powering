@@ -1,7 +1,6 @@
 <!-- home -->
 <template>
   <div class="home">
-    <h1>dd</h1>
     <section class="hero">
       <div class="hero-bg-image" aria-hidden="true"></div>
       <div class="hero-overlay"></div>
