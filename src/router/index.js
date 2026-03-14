@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+// router/index.js
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import About from '../pages/About.vue'
 import Team from '../pages/Team.vue'
@@ -19,15 +20,15 @@ const routes = [
   { path: '/projects', name: 'Projects', component: Projects }
 ]
 
+// ✅ Use hash mode only if environment variable GH_PAGES is true
+const isGitHubPages = import.meta.env.VITE_GH_PAGES === 'true'
+
 const router = createRouter({
-  history: createWebHistory(),
+  history: isGitHubPages ? createWebHashHistory() : createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { top: 0 }
-    }
+    if (savedPosition) return savedPosition
+    return { top: 0 }
   }
 })
 
