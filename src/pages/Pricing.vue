@@ -1,63 +1,99 @@
 <template>
   <div class="pricing-page">
+
+    <!-- ===== HERO ===== -->
     <section class="pricing-hero">
-      <div class="container">
-        <h1 class="page-title">Genesis Powering Tomorrow Pricing</h1>
-        <p class="page-subtitle">Transparent pricing for residential and commercial solar installations</p>
+      <div class="pricing-hero-bg" aria-hidden="true"></div>
+      <div class="pricing-hero-overlay"></div>
+      <div class="container pricing-hero-inner">
+        <h1 class="animate-hero">Solar <span class="text-accent">Pricing</span></h1>
+        <p class="animate-hero" style="animation-delay: 0.3s">Transparent pricing for residential and commercial solar installations under PM-Surya Ghar Muft Bijli Yojna.</p>
       </div>
     </section>
 
-    <section class="pricing-intro section">
+    <!-- ===== BENEFITS BAR ===== -->
+    <section class="benefits-bar">
       <div class="container">
-        <div class="intro-content">
-          <h2>Investment in Your Future</h2>
-          <p>Go solar under <strong>PM-Surya Ghar Muft Bijli Yojna</strong>. Our pricing is transparent and competitive. Financing available at 6% interest.</p>
-          <div class="plan-benefits-inline">
-            <p>✓ ₹78,000/- National Subsidy &nbsp;|&nbsp; ✓ ₹0 Light Bill &nbsp;|&nbsp; ✓ 30 Years Panel Warranty &nbsp;|&nbsp; ✓ 5 Years Free Service &nbsp;|&nbsp; ✓ No Advance Payment</p>
-          </div>
-          <p class="note">* Prices are estimates. Final pricing depends on roof size, location, and requirements. Contact us for a custom quote.</p>
-        </div>
-      </div>
-    </section>
-<!--
-    <section class="residential-pricing section">
-      <div class="container">
-        <h2 class="section-title">Residential Solar Packages</h2>
-        <p class="section-subtitle">Perfect for homes of all sizes</p>
-        <div class="pricing-grid">
-          <div v-for="(plan, index) in pricingPlans" :key="index" :class="['pricing-card', { popular: plan.popular }]">
-            <div v-if="plan.popular" class="popular-badge">Most Popular</div>
-            <h3>{{ plan.name }}</h3>
-            <div class="plan-size">{{ plan.size }}</div>
-            <div class="plan-price">{{ plan.price }}</div>
-            <div class="plan-savings">Save {{ plan.savings }}</div>
-            <ul class="plan-features">
-              <li v-for="(feature, i) in plan.features" :key="i">✓ {{ feature }}</li>
-            </ul>
-            <button @click="goToContact" class="btn" :class="plan.popular ? 'btn-primary' : 'btn-outline'">Get Quote</button>
-          </div>
+        <div class="benefits-row animate-on-scroll">
+          <span v-for="(b, i) in topBenefits" :key="i" class="benefit-pill">
+            <i class="bi bi-check-circle-fill"></i> {{ b }}
+          </span>
         </div>
       </div>
     </section>
 
-    <section class="commercial-pricing section">
+    <!-- ===== PACKAGES ===== -->
+    <section class="packages-section">
       <div class="container">
-        <h2 class="section-title">Commercial Solar Packages</h2>
-        <p class="section-subtitle">Scalable solutions for businesses</p>
-        <div class="pricing-grid">
-          <div v-for="(plan, index) in commercialPlans" :key="index" class="pricing-card commercial">
-            <h3>{{ plan.name }}</h3>
-            <div class="plan-size">{{ plan.size }}</div>
-            <div class="plan-price">{{ plan.price }}</div>
-            <div class="plan-savings">Save {{ plan.savings }}</div>
-            <ul class="plan-features">
-              <li v-for="(feature, i) in plan.features" :key="i">✓ {{ feature }}</li>
-            </ul>
-            <button @click="goToContact" class="btn btn-outline">Get Quote</button>
+        <h2 class="section-title text-center animate-on-scroll">Our Solar <span class="text-accent">Packages</span></h2>
+        <p class="section-subtitle text-center animate-on-scroll" style="max-width:560px; margin:0 auto 3rem;">Choose the right system size for your home or business. All packages include installation, warranty, and subsidy support.</p>
+
+        <div class="packages-grid">
+          <div v-for="(pkg, index) in packages" :key="index"
+               class="package-card animate-on-scroll"
+               :class="[{ popular: pkg.popular }, 'stagger-' + (index + 1)]">
+            <div v-if="pkg.popular" class="popular-badge">Most Popular</div>
+            <h3 class="pkg-name">{{ pkg.name }}</h3>
+            <p class="pkg-panels">{{ pkg.panels }}</p>
+
+            <div class="pkg-specs">
+              <div class="spec-row" v-for="(spec, si) in pkg.specs" :key="si">
+                <span class="spec-label">{{ spec.label }}</span>
+                <span class="spec-value">{{ spec.value }}</span>
+              </div>
+            </div>
+
+            <div class="pkg-pricing">
+              <div class="price-row">
+                <span>Total Cost</span>
+                <strong class="price-main">{{ pkg.cost }}</strong>
+              </div>
+              <div class="price-row highlight">
+                <span>After Subsidy</span>
+                <strong class="price-after">{{ pkg.afterSubsidy }}</strong>
+              </div>
+            </div>
+
+            <div class="pkg-savings">
+              <i class="bi bi-piggy-bank"></i>
+              <span>Savings: <strong>{{ pkg.savings }}</strong></span>
+            </div>
+
+            <button @click="goToContact" class="btn" :class="pkg.popular ? 'btn-primary' : 'btn-outline-blue'">
+              Get a Free Quote
+            </button>
+          </div>
+        </div>
+
+        <p class="pricing-note animate-on-scroll">* Prices are estimates. Final pricing depends on roof size, location, and requirements. Loan available at 6% interest. Contact us for a custom quote.</p>
+      </div>
+    </section>
+
+    <!-- ===== WHAT'S INCLUDED ===== -->
+    <section class="included-section">
+      <div class="container">
+        <h2 class="section-title text-white text-center animate-on-scroll">What's <span class="text-accent">Included</span></h2>
+        <div class="included-grid">
+          <div v-for="(item, i) in included" :key="i"
+               class="included-item animate-on-scroll" :class="'stagger-' + (i + 1)">
+            <i :class="item.icon"></i>
+            <span>{{ item.text }}</span>
           </div>
         </div>
       </div>
-    </section>-->
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="pricing-cta">
+      <div class="container cta-inner animate-on-scroll">
+        <h2>Not Sure Which <span class="text-accent">Package?</span></h2>
+        <p>Get in touch and we'll recommend the best system for your roof and budget — 100% free.</p>
+        <button @click="goToContact" class="btn btn-primary btn-lg">
+          <i class="bi bi-chat-dots" style="margin-right: 0.5rem"></i>Get a Free Consultation
+        </button>
+      </div>
+    </section>
+
   </div>
 </template>
 
@@ -66,28 +102,82 @@ export default {
   name: 'Pricing',
   data() {
     return {
-      pricingPlans: [
-        { name: 'Residential Starter', size: '5 kW', price: '$12,500', savings: '$1,500/year', panels: 16, features: ['16 Premium Solar Panels', 'Grid-Tied System', '25-Year Warranty', 'Free Installation', 'Net Metering Setup', 'Monitoring App'], popular: false },
-        { name: 'Residential Standard', size: '10 kW', price: '$22,000', savings: '$2,800/year', panels: 32, features: ['32 Premium Solar Panels', 'Grid-Tied System', '25-Year Warranty', 'Free Installation', 'Net Metering Setup', 'Monitoring App', 'Battery Ready', 'EV Charger Compatible'], popular: true },
-        { name: 'Residential Premium', size: '15 kW', price: '$30,000', savings: '$4,200/year', panels: 48, features: ['48 Premium Solar Panels', 'Grid-Tied System', '25-Year Warranty', 'Free Installation', 'Net Metering Setup', 'Monitoring App', 'Battery Storage Included', 'EV Charger Included', 'Smart Home Integration'], popular: false }
+      topBenefits: [
+        '₹78,000 National Subsidy',
+        '₹0 Light Bill',
+        '30-Year Panel Warranty',
+        '5 Years Free Service',
+        'No Advance Payment'
       ],
-      commercialPlans: [
-        { name: 'Commercial Small', size: '50 kW', price: '$75,000', savings: '$7,500/year', panels: 150, features: ['150 Commercial Panels', 'Commercial Inverter', '25-Year Warranty', 'Professional Installation', 'Net Metering', 'Monitoring Dashboard', 'Maintenance Plan'] },
-        { name: 'Commercial Medium', size: '150 kW', price: '$200,000', savings: '$22,500/year', panels: 450, features: ['450 Commercial Panels', 'Commercial Inverter', '25-Year Warranty', 'Professional Installation', 'Net Metering', 'Monitoring Dashboard', 'Maintenance Plan', 'Tax Incentives', 'ROI Tracking'] },
-        { name: 'Commercial Large', size: '300 kW', price: '$375,000', savings: '$45,000/year', panels: 900, features: ['900 Commercial Panels', 'Commercial Inverter', '25-Year Warranty', 'Professional Installation', 'Net Metering', 'Monitoring Dashboard', 'Maintenance Plan', 'Tax Incentives', 'ROI Tracking', 'Custom Design', 'Dedicated Support'] }
+      packages: [
+        {
+          name: 'Small System',
+          panels: '3–6 Solar Panels',
+          popular: false,
+          specs: [
+            { label: 'System Size', value: '1 – 2 kW' },
+            { label: 'Roof Space', value: '100 – 200 sq ft' },
+            { label: 'Annual Production', value: '1,500 – 3,000 kWh' },
+            { label: 'Best For', value: '1–2 BHK homes' }
+          ],
+          cost: '₹70,000 – ₹1,40,000',
+          afterSubsidy: '₹40,000 – ₹62,000',
+          savings: '₹10,000 – ₹20,000/year'
+        },
+        {
+          name: 'Medium System',
+          panels: '6–15 Solar Panels',
+          popular: true,
+          specs: [
+            { label: 'System Size', value: '3 – 5 kW' },
+            { label: 'Roof Space', value: '300 – 500 sq ft' },
+            { label: 'Annual Production', value: '4,500 – 7,500 kWh' },
+            { label: 'Best For', value: '3–4 BHK homes' }
+          ],
+          cost: '₹1,80,000 – ₹3,00,000',
+          afterSubsidy: '₹1,02,000 – ₹2,22,000',
+          savings: '₹30,000 – ₹50,000/year'
+        },
+        {
+          name: 'Large System',
+          panels: '15+ Solar Panels',
+          popular: false,
+          specs: [
+            { label: 'System Size', value: '5 – 10 kW' },
+            { label: 'Roof Space', value: '500 – 1,000 sq ft' },
+            { label: 'Annual Production', value: '7,500 – 15,000 kWh' },
+            { label: 'Best For', value: 'Bungalows & offices' }
+          ],
+          cost: '₹3,00,000 – ₹6,00,000',
+          afterSubsidy: '₹2,22,000 – ₹5,22,000',
+          savings: '₹50,000 – ₹1,00,000/year'
+        }
       ],
-      incentives: [
-        'Federal Tax Credits Available',
-        'Provincial Rebates',
-        'Net Metering Programs',
-        'Accelerated Depreciation',
-        'Property Tax Exemptions'
+      included: [
+        { icon: 'bi bi-tools', text: 'Professional Installation' },
+        { icon: 'bi bi-file-earmark-check', text: 'DISCOM & Permit Handling' },
+        { icon: 'bi bi-speedometer2', text: 'Net Metering Setup' },
+        { icon: 'bi bi-shield-check', text: '30-Year Panel Warranty' },
+        { icon: 'bi bi-headset', text: '5 Years Free Service' },
+        { icon: 'bi bi-graph-up-arrow', text: 'Performance Monitoring' }
       ]
     }
   },
+  mounted() { this.initScrollAnimations() },
+  beforeUnmount() { if (this.scrollObserver) this.scrollObserver.disconnect() },
   methods: {
-    goToContact() {
-      this.$router.push('/contact')
+    goToContact() { this.$router.push('/contact') },
+    initScrollAnimations() {
+      const els = this.$el.querySelectorAll('.animate-on-scroll')
+      this.scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-visible')
+            this.scrollObserver.unobserve(entry.target)
+          }
+        })
+      }, { threshold: 0.12 })
+      els.forEach(el => this.scrollObserver.observe(el))
     }
   }
 }
@@ -95,37 +185,210 @@ export default {
 
 <style scoped>
 .pricing-page { width: 100%; }
-.pricing-hero { padding: 4rem 0 2rem; background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 100%); text-align: center; }
-.page-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-.page-subtitle { font-size: 1.2rem; color: var(--gray); }
-.pricing-intro { background: var(--navy); text-align: center; }
-.intro-content { max-width: 800px; margin: 0 auto; }
-.intro-content h2 { font-size: 2rem; margin-bottom: 1rem; }
-.intro-content p { color: var(--gray); line-height: 1.7; margin-bottom: 1rem; }
-.plan-benefits-inline { margin: 1.25rem 0; padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: var(--radius); }
-.plan-benefits-inline p { margin: 0; color: var(--off-white); font-size: 0.95rem; }
-.cta-section .section-subtitle a { color: var(--sun-light); }
-.note { font-size: 0.9rem; color: var(--gray-dark); font-style: italic; }
-.residential-pricing { background: var(--navy-light); }
-.commercial-pricing { background: var(--navy); }
-.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
-.pricing-card { position: relative; background: var(--navy); border: 2px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; text-align: center; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); }
-.pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.pricing-card.popular { border-color: var(--sun); background: var(--navy-light); }
-.pricing-card.commercial { background: var(--navy-light); }
-.popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--sun); color: var(--navy); padding: 0.5rem 1.5rem; border-radius: 20px; font-weight: 600; font-size: 0.85rem; }
-.pricing-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-.plan-size { color: var(--sun-light); font-weight: 600; margin-bottom: 1rem; }
-.plan-price { font-size: 2.5rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
-.plan-savings { color: var(--gray); margin-bottom: 2rem; font-size: 1rem; }
-.plan-features { list-style: none; text-align: left; margin-bottom: 2rem; min-height: 200px; }
-.plan-features li { padding: 0.75rem 0; color: var(--gray); border-bottom: 1px solid var(--border); }
-.plan-features li:last-child { border-bottom: none; }
-.incentives-section { background: var(--navy-light); }
-.incentives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.incentive-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--navy); border: 1px solid var(--border); border-radius: var(--radius); }
-.incentive-icon { font-size: 2rem; flex-shrink: 0; }
-.incentive-item p { color: var(--gray); margin: 0; }
-.incentives-note { text-align: center; color: var(--gray); margin-top: 2rem; font-style: italic; }
-.cta-section { background: var(--navy); text-align: center; }
+.text-accent { color: var(--sun); }
+.text-white { color: var(--white); }
+.text-center { text-align: center; }
+
+/* HERO */
+.pricing-hero {
+  position: relative;
+  padding: 9rem 0 5rem;
+  text-align: center;
+  overflow: hidden;
+}
+.pricing-hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=1920&q=80');
+  background-size: cover; background-position: center;
+}
+.pricing-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(15,42,74,0.93), rgba(15,42,74,0.82));
+}
+.pricing-hero-inner { position: relative; z-index: 2; max-width: 620px; margin: 0 auto; }
+.animate-hero {
+  opacity: 0; transform: translateY(25px);
+  animation: fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.pricing-hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--white); margin-bottom: 1rem; }
+.pricing-hero p { font-size: 1.1rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+
+/* BENEFITS BAR */
+.benefits-bar {
+  padding: 1.25rem 0;
+  background: var(--navy);
+}
+.benefits-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.benefit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  background: rgba(59, 170, 53, 0.12);
+  border: 1px solid rgba(59, 170, 53, 0.25);
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--green-light);
+}
+.benefit-pill i { font-size: 0.75rem; }
+
+/* PACKAGES */
+.packages-section { padding: 5rem 0; background: var(--white); }
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+@media (max-width: 900px) { .packages-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+
+.package-card {
+  position: relative;
+  padding: 2rem;
+  background: var(--off-white);
+  border: 2px solid transparent;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+}
+.package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+.package-card.popular {
+  background: var(--white);
+  border-color: var(--sun);
+  box-shadow: 0 8px 30px rgba(247, 147, 30, 0.15);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -13px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--sun), var(--sun-dark));
+  color: var(--white);
+  padding: 0.4rem 1.25rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.pkg-name {
+  font-size: 1.4rem;
+  color: var(--navy);
+  margin-bottom: 0.25rem;
+}
+.pkg-panels {
+  font-size: 0.9rem;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.pkg-specs {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(15,42,74,0.06);
+  font-size: 0.9rem;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-label { color: var(--gray-dark); }
+.spec-value { color: var(--navy); font-weight: 600; }
+
+.pkg-pricing {
+  margin-bottom: 1rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.popular .pkg-pricing { background: var(--off-white); }
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+.price-row span { color: var(--gray-dark); }
+.price-main { color: var(--navy); font-size: 1rem; }
+.price-row.highlight {
+  background: rgba(59, 170, 53, 0.08);
+}
+.price-after { color: var(--green); font-size: 1.05rem; }
+
+.pkg-savings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--blue);
+}
+.pkg-savings i { font-size: 1rem; }
+.pkg-savings strong { color: var(--navy); }
+
+.package-card .btn { width: 100%; }
+
+.pricing-note {
+  text-align: center;
+  color: var(--gray-dark);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* INCLUDED */
+.included-section {
+  padding: 5rem 0;
+  background: var(--navy);
+}
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 768px) { .included-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .included-grid { grid-template-columns: 1fr; } }
+.included-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.93rem;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+.included-item:hover { background: rgba(255,255,255,0.08); }
+.included-item i { color: var(--green); font-size: 1.15rem; flex-shrink: 0; }
+
+/* CTA */
+.pricing-cta {
+  padding: 5rem 0;
+  background: var(--off-white);
+}
+.cta-inner { text-align: center; max-width: 550px; margin: 0 auto; }
+.cta-inner h2 { color: var(--navy); font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.75rem; }
+.cta-inner p { color: var(--gray-dark); margin-bottom: 1.5rem; line-height: 1.7; }
+.btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
 </style>

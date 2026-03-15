@@ -1,19 +1,32 @@
-/* Solar System – one-page site */
+/* Genesis – Global Styles */
 :root {
-  --navy: #0c1929;
-  --navy-light: #132f4c;
-  --sun: #e8a317;
-  --sun-light: #f5c84a;
-  --sun-dark: #c4860f;
+  /* Primary palette from company branding */
+  --navy: #0f2a4a;
+  --navy-light: #163a63;
+  --navy-dark: #0a1e36;
+  --blue: #2574b5;
+  --blue-light: #3a8fd4;
+  --blue-dark: #1c5d96;
+  --green: #3baa35;
+  --green-light: #4ec946;
+  --green-dark: #2d8c28;
+  --sun: #f7931e;
+  --sun-light: #ffb347;
+  --sun-dark: #d97b0a;
   --white: #ffffff;
-  --off-white: #f8fafc;
-  --gray: #94a3b8;
-  --gray-dark: #64748b;
-  --border: rgba(255, 255, 255, 0.08);
-  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  --off-white: #f4f7fa;
+  --gray: #8fa4bd;
+  --gray-dark: #5a7392;
+  --text-dark: #0f2a4a;
+  --text-light: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(15, 42, 74, 0.1);
+  --shadow: 0 20px 40px rgba(15, 42, 74, 0.2);
+  --shadow-sm: 0 4px 16px rgba(15, 42, 74, 0.1);
   --radius: 12px;
   --radius-lg: 20px;
-  --transition: 0.25s ease;
+  --radius-xl: 28px;
+  --transition: 0.3s ease;
 }
 
 *,
@@ -30,8 +43,8 @@ html {
 
 body {
   font-family: 'Outfit', sans-serif;
-  background: var(--navy);
-  color: var(--white);
+  background: var(--white);
+  color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -66,21 +79,17 @@ button {
   padding: 0 1.5rem;
 }
 
-.section {
-  padding: 5rem 0;
-}
-
 .section-title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
   margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
-  color: var(--gray);
   font-size: 1.1rem;
   font-weight: 400;
 }
 
+/* ===== Buttons ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -94,22 +103,92 @@ button {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--sun) 0%, var(--sun-dark) 100%);
-  color: var(--navy);
-  box-shadow: 0 4px 20px rgba(232, 163, 23, 0.4);
+  color: var(--white);
+  box-shadow: 0 4px 20px rgba(247, 147, 30, 0.35);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(232, 163, 23, 0.5);
+  box-shadow: 0 8px 28px rgba(247, 147, 30, 0.5);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  color: var(--white);
+  box-shadow: 0 4px 20px rgba(37, 116, 181, 0.3);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 116, 181, 0.45);
 }
 
 .btn-outline {
-  border: 2px solid var(--sun);
-  color: var(--sun);
+  border: 2px solid var(--white);
+  color: var(--white);
   background: transparent;
 }
 
 .btn-outline:hover {
-  background: rgba(232, 163, 23, 0.12);
-  color: var(--sun-light);
+  background: rgba(255, 255, 255, 0.12);
 }
+
+.btn-outline-blue {
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  background: transparent;
+}
+
+.btn-outline-blue:hover {
+  background: rgba(37, 116, 181, 0.08);
+  color: var(--blue-dark);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(247, 147, 30, 0.3); }
+  50%      { box-shadow: 0 0 35px rgba(247, 147, 30, 0.5); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes particleDrift {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+}
+
+/* Animate-on-scroll system */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-on-scroll.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
